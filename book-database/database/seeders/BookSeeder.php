@@ -15,7 +15,8 @@ class BookSeeder extends Seeder
     public function run()
     {
         DB::table('books')->insert([
-            ['title' => 'Sample Book 1', 'author' => 'Author 1', 'published_year' => 2001, 'genre' => 'Fiction', 'description' => 'A description.'],
+            ['title' => 'Sample Book', 'author' => 'Epistola', 'published_year' => 2001, 'genre' => 'Fiction', 'description' => 'A Sample Book 1'],
+            ['title' => 'Into The Pit', 'author' => 'Scott Ca', 'published_year' => 2017, 'genre' => 'Fiction', 'description' => 'A FNAF Book'],
             
         ]);
     }

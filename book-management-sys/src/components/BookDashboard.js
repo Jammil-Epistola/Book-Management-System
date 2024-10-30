@@ -7,6 +7,7 @@ function BookDashboard() {
   const [selectedBook, setSelectedBook] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const [showAddModal, setShowAddModal] = useState(false);
+  const [showEditModal, setShowEditModal] = useState(false);
   const [newBook, setNewBook] = useState({
     id: "",
     title: "",
@@ -18,9 +19,10 @@ function BookDashboard() {
 
   // Fetch books from backend
   useEffect(() => {
-    fetch('/api/books')
+    fetch('http://127.0.0.1:8000/api/books')
       .then(response => response.json())
-      .then(data => setBooks(data));
+      .then(data => setBooks(data))
+      .catch(error => console.error("Fetch error: ", error));
   }, []);
 
   // Filter books based on search query
@@ -49,7 +51,14 @@ function BookDashboard() {
 
   const closeAddModal = () => setShowAddModal(false);
 
-  // Auto-generate 8-digit ID
+  const openEditModal = (book) => {
+    setNewBook(book);
+    setShowEditModal(true);
+  };
+
+  const closeEditModal = () => setShowEditModal(false);
+
+  // Auto-generate 8-digit ID for a new book
   const generateId = () => {
     setNewBook(prev => ({ ...prev, id: Math.floor(10000000 + Math.random() * 90000000) }));
   };
@@ -59,6 +68,41 @@ function BookDashboard() {
     setNewBook(prev => ({ ...prev, [name]: value }));
   };
 
+  const handleAddBook = () => {
+    fetch('http://127.0.0.1:8000/api/books', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(newBook)
+    })
+    .then(response => response.json())
+    .then(addedBook => {
+      setBooks([...books, addedBook]);
+      closeAddModal();
+    });
+  };
+
+  const handleEditBook = () => {
+    fetch(`http://127.0.0.1:8000/api/books/${newBook.id}`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(newBook)
+    })
+    .then(response => response.json())
+    .then(updatedBook => {
+      setBooks(books.map(book => book.id === updatedBook.id ? updatedBook : book));
+      closeEditModal();
+    });
+  };
+
+  const handleDeleteBook = (id) => {
+    fetch(`http://127.0.0.1:8000/api/books/${id}`, {
+      method: 'DELETE'
+    })
+    .then(() => {
+      setBooks(books.filter(book => book.id !== id));
+    });
+  };
+
   return (
     <div>
       {/* Search Bar */}
@@ -66,11 +110,11 @@ function BookDashboard() {
         <Form.Control
           type="text"
           placeholder="Search for a book"
-          className="mr-sm-2"
+          style={{ width: '200px' }}  // Shortened width
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
         />
-        <Button variant="outline-success">Search</Button>
+        <Button variant="outline-success" className="ml-2">Search</Button>
         <Button variant="success" className="ml-2" onClick={openAddModal}>
           + Add Book
         </Button>
@@ -89,7 +133,8 @@ function BookDashboard() {
                 <strong>Description:</strong> {book.description}
               </Card.Text>
               <Button variant="primary" onClick={() => openModal(book)}>View Details</Button>
-              <Button variant="danger" className="ml-2">Delete</Button>
+              <Button variant="warning" className="ml-2" onClick={() => openEditModal(book)}>Edit</Button>
+              <Button variant="danger" className="ml-2" onClick={() => handleDeleteBook(book.id)}>Delete</Button>
             </Card.Body>
           </Card>
         ))}
@@ -189,10 +234,26 @@ function BookDashboard() {
               />
             </Form.Group>
           </Form>
+          <Button variant="primary" onClick={handleAddBook}>Add Book</Button>
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={closeAddModal}>Close</Button>
-          <Button variant="primary">Add Book</Button>
+        </Modal.Footer>
+      </Modal>
+
+      {/* Edit Book Modal */}
+      <Modal show={showEditModal} onHide={closeEditModal}>
+        <Modal.Header closeButton>
+          <Modal.Title>Edit Book</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Form>
+            {/* Add edit form fields here similar to the Add Book form */}
+          </Form>
+          <Button variant="primary" onClick={handleEditBook}>Save Changes</Button>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={closeEditModal}>Close</Button>
         </Modal.Footer>
       </Modal>
     </div>
@@ -200,4 +261,5 @@ function BookDashboard() {
 }
 
 export default BookDashboard;
+
 
