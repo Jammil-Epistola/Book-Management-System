@@ -1,0 +1,108 @@
+.dashboard-container {
+  display: flex;
+}
+
+.sidebar {
+  position: fixed; 
+  top: 0;
+  left: 0;
+  height: 100vh; 
+  width: 250px; 
+  background-color: #30011E; /* Navbar color */
+  color: white;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  overflow: hidden;
+}
+
+.sidebar h3 {
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.sidebar-line {
+  width: 100%; 
+  border: 2px solid white; 
+  margin: 15px 0; 
+}
+
+.content {
+  flex: 1;
+  padding: 20px;
+}
+
+.search-bar {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.book-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  width: 165vh;
+}
+
+
+body {
+  background-color: #D7FCD4;
+}
+
+/* Search bar */
+.form-inline .form-control {
+  background-color: #B6CCA1;
+}
+
+/* Search Button */
+.btn-outline-success {
+  background-color: #B68F40; 
+  border-color: #B68F40;
+  color: white;
+}
+
+.btn-outline-success:hover {
+  background-color: #A07936;
+  border-color: #A07936;
+}
+
+/* Book Cards */
+.book-list .card {
+  background-color: #545454; 
+  color: white;
+}
+
+.book-list .card .btn-primary {
+  background-color: #4857e0;
+  border-color: #A4BEF3;
+  color: white;
+}
+
+.book-list .card .btn-warning {
+  background-color: #cfe607;
+  border-color: #000000;
+  color: black;
+}
+
+.book-list .card .btn-danger {
+  background-color: #C62E2E;
+  border-color: #C62E2E;
+  color: white;
+}
+
+/* Sidebar Add Book Button */
+.sidebar .btn-success {
+  background-color: #B68F40; 
+  border-color: #B68F40;
+  color: white;
+}
+
+.sidebar .btn-success:hover {
+  background-color: #A07936;
+  border-color: #A07936;
+}
+
+  

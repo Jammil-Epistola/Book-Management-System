@@ -1,19 +1,14 @@
-import logo from './logo.svg';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import React from 'react';
-import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
-import BookDashboard from './components/BookDashboard';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import BookList from './components/BookList';
 
 function App() {
   return (
     <Router>
       <div>
-        <nav>
-          <Link to="/">Book Management System</Link>
-        </nav>
         <Routes>
-          <Route path="/" element={<BookDashboard />} />
-          {/* Additional routes can go here for other components/pages like Add Book, Edit Book */}
+          <Route path="/" element={<BookList />} />
         </Routes>
       </div>
     </Router>
