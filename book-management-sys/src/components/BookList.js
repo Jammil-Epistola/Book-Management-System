@@ -9,7 +9,7 @@ function BookList() {
   const [searchQuery, setSearchQuery] = useState("");
   const [showAddEditModal, setShowAddEditModal] = useState(false);
   const [showViewModal, setShowViewModal] = useState(false);
-  const [showDeleteModal, setShowDeleteModal] = useState(false); // State for delete confirmation modal
+  const [showDeleteModal, setShowDeleteModal] = useState(false); 
   const [selectedBook, setSelectedBook] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
   const [newBook, setNewBook] = useState({
