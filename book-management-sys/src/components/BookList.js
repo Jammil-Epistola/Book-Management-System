@@ -41,7 +41,6 @@ function BookList({ books, setBooks }) {
         setBooks((prev) => prev.filter((b) => b.id !== selectedBook.id));
         setShowDeleteModal(false);
         
-        // Show success message
         setSuccessMessage(`"${selectedBook.title}" has been deleted from the Book List.`);
         setShowSuccessModal(true);
       })
@@ -59,11 +58,12 @@ function BookList({ books, setBooks }) {
     <div className="dashboard-container" style={{ display: 'flex' }}>
       {/* Sidebar */}
       <div className="sidebar" style={{ width: '250px', position: 'fixed', top: 0, left: 0, height: '100vh', backgroundColor: '#333', color: 'white', paddingTop: '20px', zIndex: 2 }}>
-        <SideNavBar />
+        <SideNavBar activePage="home" />
       </div>
   
       {/* Main Content */}
       <div className="content-wrapper" style={{ marginLeft: '250px', padding: '20px', width: 'calc(100% - 250px)' }}>
+        <h2>Book List</h2> 
         <Form className="search-bar my-4">
           <Form.Control
             type="text"
@@ -74,7 +74,7 @@ function BookList({ books, setBooks }) {
           />
           <Button variant="outline-success" className="ml-2">Search</Button>
         </Form>
-  
+        
         <div className="book-list">
           {filteredBooks.map((book) => (
             <Card key={book.id} className="mb-3" style={{ width: '100%' }}>
@@ -95,7 +95,7 @@ function BookList({ books, setBooks }) {
           ))}
         </div>
       </div>
-  
+
       {/* Delete Confirmation Modal */}
       <Modal show={showDeleteModal} onHide={handleDeleteCancel}>
         <Modal.Header closeButton>
@@ -107,7 +107,7 @@ function BookList({ books, setBooks }) {
           <Button variant="danger" onClick={handleDeleteConfirm}>Confirm</Button>
         </Modal.Footer>
       </Modal>
-  
+
       {/* Success Modal */}
       <Modal show={showSuccessModal} onHide={() => setShowSuccessModal(false)}>
         <Modal.Header closeButton>

@@ -34,7 +34,7 @@ function ViewBook({ books }) {
 
   return(
     <div style={containerStyle}>
-      <SideNavBar />
+      <SideNavBar activePage="view book"/>
       <div style={contentStyle}>
         <BookDetails book={book} />
       </div>

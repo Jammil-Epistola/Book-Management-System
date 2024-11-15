@@ -77,7 +77,7 @@ function EditBook({ books, setBooks }) {
   return (
     <div className="dashboard-container">
       <div className="sidebar">
-        <SideNavBar />
+        <SideNavBar activePage="edit book" />
       </div>
       <Container style={{ maxWidth: '600px', marginTop: '20px' }}>
         <Card>

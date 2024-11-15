@@ -84,7 +84,7 @@ function AddBook({ setBooks }) {
   return (
     <div className="dashboard-container">
       <div className="sidebar">
-        <SideNavBar />
+        <SideNavBar activePage="add book"/>
       </div>
       <Container style={{ maxWidth: '600px', marginTop: '20px' }}>
         <Card>
